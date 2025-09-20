@@ -75,8 +75,8 @@ export default function Lobby() {
         <h1 className="lobby-title">Sala de espera</h1>
         <p className="lobby-subtitle">
           {status === "waiting"
-            ? players.length < 4
-              ? `Esperando jugadores... (${players.length}/4)`
+            ? players.length < 6
+              ? `Esperando jugadores... (${players.length}/5)`
               : "Todos presentes, esperando confirmaciones..."
             : "¡Partida en progreso!"}
         </p>

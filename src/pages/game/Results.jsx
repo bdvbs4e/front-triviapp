@@ -25,7 +25,6 @@ export default function Results() {
     socket.on("results-update", (data) => {
       console.log("📢 results-update:", data);
       
-      // Priorizar datos de la base de datos si están disponibles
       if (data.dbResults && data.dbResults.length > 0) {
         setPlayers(data.dbResults);
         setDbResults(data.dbResults);
@@ -42,30 +41,21 @@ export default function Results() {
     };
   }, [localUser?.roomId]);
 
-  // 🔢 Calcular preguntas correctas basado en la ronda de eliminación
   const calculateCorrectAnswers = (player) => {
     if (!player.eliminated) {
-      // Si no fue eliminado, su score es correcto
       return player.score || 0;
     } else {
-      // Si fue eliminado, las preguntas correctas = ronda eliminada - 1
       const eliminatedRound = player.eliminatedRound || player.round || 0;
       return Math.max(0, eliminatedRound - 1);
     }
   };
 
-  // 🏆 Ordenar jugadores para mostrar ranking
   const sortedPlayers = useMemo(() => {
     const playersCopy = [...players];
     return playersCopy.sort((a, b) => {
-      // Primero los no eliminados
       if (!a.eliminated && b.eliminated) return -1;
       if (a.eliminated && !b.eliminated) return 1;
-      
-      // Luego por puntuación (mayor a menor)
       if (a.score !== b.score) return (b.score || 0) - (a.score || 0);
-      
-      // Finalmente por ronda de eliminación (menor a mayor)
       return (a.eliminatedRound || 0) - (b.eliminatedRound || 0);
     });
   }, [players]);
@@ -74,12 +64,8 @@ export default function Results() {
     if (isLeaving) return;
     setIsLeaving(true);
 
-    const socket = getSocket();
-    if (socket && socket.connected) {
-      console.log("👋 Saliendo de la partida...");
-      socket.emit("player-leave", { id: localUser?._id, roomId: localUser?.roomId });
-    }
-
+    // ❌ Ya NO hacemos "player-leave"
+    // ✅ Simplemente volvemos al lobby manteniendo el mismo roomId
     sessionStorage.setItem("fromResults", "true");
     navigate("/lobby", { replace: true });
   };

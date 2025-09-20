@@ -1,0 +1,526 @@
+/* Variables para colores vibrantes estilo Preguntados */
+:root {
+  --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  --warning-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  --highlight-gradient: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+  --gold-gradient: linear-gradient(135deg, #ffd700 0%, #ffb347 100%);
+  --silver-gradient: linear-gradient(135deg, #c0c0c0 0%, #e6e6fa 100%);
+  --bronze-gradient: linear-gradient(135deg, #cd7f32 0%, #daa520 100%);
+}
+
+/* Contenedor principal de resultados */
+.results-container {
+  background: var(--primary-gradient);
+  border-radius: 20px;
+  padding: 30px;
+  margin: 20px 0;
+  box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.results-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  animation: shimmer 3s infinite;
+}
+
+/* Tabla de resultados - Diseño base */
+.results-table {
+  width: 100%;
+  margin: 20px 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  min-width: 600px; /* Ancho mínimo para PC */
+  table-layout: fixed; /* Fuerza ancho fijo de columnas */
+}
+
+/* Encabezados de la tabla */
+.results-table th {
+  background: var(--primary-gradient);
+  color: white;
+  font-weight: 700;
+  padding: 20px 15px;
+  text-align: center;
+  font-size: 16px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  position: relative;
+  white-space: nowrap;
+}
+
+/* Definir ancho fijo para cada columna */
+.results-table th:nth-child(1) { width: 35%; } /* Jugador */
+.results-table th:nth-child(2) { width: 20%; } /* Estado */
+.results-table th:nth-child(3) { width: 20%; } /* Ronda Eliminado */
+.results-table th:nth-child(4) { width: 25%; } /* Preguntas Correctas */
+
+.results-table th::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #ffd700, #ff6b6b, #4ecdc4, #45b7d1);
+}
+
+/* Celdas de la tabla - Diseño base */
+.results-table td {
+  padding: 15px;
+  text-align: center;
+  border-bottom: 2px solid rgba(102, 126, 234, 0.1);
+  font-weight: 500;
+  transition: all 0.3s ease;
+  position: relative;
+  vertical-align: middle;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Aplicar el mismo ancho fijo a las celdas */
+.results-table td:nth-child(1) { width: 35%; } /* Jugador */
+.results-table td:nth-child(2) { width: 20%; } /* Estado */
+.results-table td:nth-child(3) { width: 20%; } /* Ronda Eliminado */
+.results-table td:nth-child(4) { width: 25%; } /* Preguntas Correctas */
+
+/* Contenedor del nombre del jugador */
+.player-name-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: nowrap;
+  width: 100%;
+  overflow: hidden;
+}
+
+.player-name {
+  font-weight: 600;
+  color: #2d3748;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+  min-width: 0;
+}
+
+.winner-icon {
+  font-size: 18px;
+  animation: bounce 1s infinite;
+  filter: drop-shadow(0 2px 4px rgba(255, 215, 0, 0.5));
+  flex-shrink: 0;
+}
+
+.current-player {
+  font-style: italic;
+  color: #667eea;
+  font-weight: 500;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Celdas específicas */
+.status-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.eliminated-status {
+  color: #e53e3e;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.survived-status {
+  color: #38a169;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.round-cell {
+  font-weight: 600;
+  color: #2d3748;
+  width: 100%;
+}
+
+.score-cell {
+  font-weight: 700;
+  color: #667eea;
+  font-size: 18px;
+  width: 100%;
+}
+
+.results-table tr:hover td {
+  background: rgba(102, 126, 234, 0.1);
+  transform: scale(1.02);
+}
+
+/* Resaltado del jugador actual */
+.highlight {
+  background: var(--highlight-gradient) !important;
+  color: #2d3748;
+  font-weight: 700;
+  position: relative;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+/* Fila del ganador */
+.winner-row {
+  background: var(--gold-gradient) !important;
+  color: white !important;
+  font-weight: 700;
+  position: relative;
+  animation: winnerGlow 2s ease-in-out infinite alternate;
+}
+
+.winner-row td {
+  color: white !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.winner-row .player-name {
+  color: white !important;
+  font-weight: 800;
+}
+
+.winner-row .current-player {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.winner-row .eliminated-status,
+.winner-row .survived-status {
+  color: white !important;
+  font-weight: 800;
+}
+
+.winner-row .round-cell {
+  color: white !important;
+  font-weight: 800;
+}
+
+.winner-row .score-cell {
+  color: white !important;
+  font-weight: 800;
+}
+
+.highlight::before {
+  content: "👑";
+  position: absolute;
+  left: -25px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+  animation: bounce 1s infinite;
+}
+
+
+/* Título de resultados */
+.results-title {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 30px;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  animation: fadeInDown 1s ease-out;
+}
+
+/* Estadísticas adicionales */
+.stats-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 30px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.stat-card {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+  min-width: 120px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+}
+
+.stat-number {
+  font-size: 24px;
+  font-weight: 800;
+  color: #667eea;
+  display: block;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: #718096;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 5px;
+}
+
+/* Animaciones */
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 20px rgba(168, 237, 234, 0.5);
+  }
+  to {
+    box-shadow: 0 0 30px rgba(254, 214, 227, 0.8);
+  }
+}
+
+@keyframes winnerGlow {
+  from {
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+  }
+  to {
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+  }
+}
+
+@keyframes bounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(-50%);
+  }
+  40% {
+    transform: translateY(-60%);
+  }
+  60% {
+    transform: translateY(-55%);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Contenedor de tabla con scroll horizontal */
+.table-container {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive - Pantallas grandes (PC) */
+@media (min-width: 1024px) {
+  .results-table {
+    min-width: 800px;
+    font-size: 16px;
+  }
+  
+  .results-table th,
+  .results-table td {
+    padding: 20px 20px;
+  }
+  
+  .player-name-cell {
+    gap: 12px;
+  }
+}
+
+/* Responsive - Tablets */
+@media (max-width: 1023px) and (min-width: 769px) {
+  .results-table {
+    min-width: 600px;
+    font-size: 15px;
+  }
+  
+  .results-table th,
+  .results-table td {
+    padding: 16px 12px;
+  }
+  
+  .player-name-cell {
+    gap: 8px;
+  }
+}
+
+/* Responsive - Móviles grandes */
+@media (max-width: 768px) {
+  .results-container {
+    padding: 20px;
+    margin: 10px;
+  }
+
+  .results-table {
+    min-width: 500px;
+    font-size: 14px;
+  }
+
+  .results-table th,
+  .results-table td {
+    padding: 12px 8px;
+  }
+
+  .results-title {
+    font-size: 24px;
+  }
+
+  .highlight::before {
+    left: -20px;
+    font-size: 16px;
+  }
+
+  .player-name-cell {
+    flex-direction: row;
+    gap: 6px;
+  }
+
+  .player-name {
+    font-size: 13px;
+  }
+
+  .winner-icon {
+    font-size: 16px;
+  }
+
+  .current-player {
+    font-size: 12px;
+  }
+
+  .round-cell,
+  .score-cell {
+    font-size: 13px;
+  }
+}
+
+/* Responsive - Móviles pequeños */
+@media (max-width: 480px) {
+  .results-container {
+    padding: 15px;
+    margin: 8px;
+  }
+
+  .results-table {
+    min-width: 400px;
+    font-size: 12px;
+  }
+
+  .results-table th,
+  .results-table td {
+    padding: 10px 6px;
+  }
+
+  .results-title {
+    font-size: 20px;
+  }
+
+  .stats-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .stat-card {
+    width: 100%;
+    max-width: 200px;
+  }
+
+  .player-name-cell {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .player-name {
+    font-size: 12px;
+  }
+
+  .winner-icon {
+    font-size: 14px;
+  }
+
+  .current-player {
+    font-size: 11px;
+  }
+
+  .round-cell,
+  .score-cell {
+    font-size: 12px;
+  }
+
+  .eliminated-status,
+  .survived-status {
+    font-size: 11px;
+  }
+}
+
+/* Responsive - Móviles muy pequeños */
+@media (max-width: 360px) {
+  .results-table {
+    min-width: 350px;
+    font-size: 11px;
+  }
+
+  .results-table th,
+  .results-table td {
+    padding: 8px 4px;
+  }
+
+  .player-name {
+    font-size: 11px;
+  }
+
+  .current-player {
+    font-size: 10px;
+  }
+
+  .round-cell,
+  .score-cell {
+    font-size: 11px;
+  }
+
+  .eliminated-status,
+  .survived-status {
+    font-size: 10px;
+  }
+}

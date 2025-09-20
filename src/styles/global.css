@@ -1,0 +1,471 @@
+/* =========================
+   RESET + TIPOGRAFÍA BASE
+   ========================= */
+   * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+  
+  body {
+    font-family: "DM Sans", "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    color: #1f2937;
+    /* Gradiente más vibrante y colorido estilo Preguntados */
+    background: linear-gradient(135deg, #ea580c 0%, #f97316 25%, #059669 75%, #fffbeb 100%);
+    background-size: 400% 400%;
+    animation: gradientShift 8s ease infinite;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+  }
+  
+  /* Animación del gradiente de fondo */
+  @keyframes gradientShift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  
+  /* =========================
+     CONTENEDOR DE PANTALLA
+     ========================= */
+  .screen {
+    min-height: 100dvh;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+    position: relative;
+  }
+  
+  /* Elementos decorativos flotantes */
+  .screen::before {
+    content: "";
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    width: 60px;
+    height: 60px;
+    background: rgba(234, 88, 12, 0.1);
+    border-radius: 50%;
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .screen::after {
+    content: "";
+    position: absolute;
+    bottom: 15%;
+    right: 15%;
+    width: 80px;
+    height: 80px;
+    background: rgba(5, 150, 105, 0.1);
+    border-radius: 50%;
+    animation: float 8s ease-in-out infinite reverse;
+  }
+  
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-20px) rotate(180deg);
+    }
+  }
+  
+  /* =========================
+     TARJETAS
+     ========================= */
+  .auth-card {
+    width: 100%;
+    max-width: 420px;
+    /* Fondo con gradiente sutil y mejor sombra */
+    background: linear-gradient(145deg, #ffffff 0%, #fffbeb 100%);
+    border-radius: 24px;
+    padding: 32px 24px;
+    /* Sombra más dramática y colorida */
+    box-shadow: 0 20px 40px rgba(234, 88, 12, 0.15), 0 10px 20px rgba(0, 0, 0, 0.1), inset 0 1px 0
+      rgba(255, 255, 255, 0.8);
+    border: 2px solid rgba(234, 88, 12, 0.1);
+    animation: bounceIn 0.6s ease-out;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Efecto de brillo en las tarjetas */
+  .auth-card::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(234, 88, 12, 0.05), transparent);
+    transform: rotate(45deg);
+    animation: shimmer 3s ease-in-out infinite;
+  }
+  
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    }
+    50% {
+      transform: translateX(0%) translateY(0%) rotate(45deg);
+    }
+    100% {
+      transform: translateX(100%) translateY(100%) rotate(45deg);
+    }
+  }
+  
+  /* =========================
+     BOTONES
+     ========================= */
+  .btn-primary {
+    width: 100%;
+    border: 0;
+    border-radius: 50px;
+    padding: 16px 24px;
+    font-weight: 700;
+    font-size: 16px;
+    font-family: "DM Sans", sans-serif;
+    /* Gradiente vibrante estilo Preguntados */
+    background: linear-gradient(135deg, #ea580c 0%, #f97316 50%, #ea580c 100%);
+    background-size: 200% 200%;
+    color: #ffffff;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    /* Sombra más pronunciada */
+    box-shadow: 0 8px 16px rgba(234, 88, 12, 0.3), 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .btn-primary::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+  }
+  
+  .btn-primary:hover {
+    /* Hover más dinámico */
+    background-position: 100% 0;
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 12px 24px rgba(234, 88, 12, 0.4), 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .btn-primary:hover::before {
+    left: 100%;
+  }
+  
+  .btn-primary:active {
+    transform: translateY(0) scale(0.98);
+    box-shadow: 0 4px 8px rgba(234, 88, 12, 0.3), 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Botón secundario para variedad */
+  .btn-secondary {
+    width: 100%;
+    border: 2px solid #059669;
+    border-radius: 50px;
+    padding: 14px 24px;
+    font-weight: 600;
+    font-size: 16px;
+    font-family: "DM Sans", sans-serif;
+    background: transparent;
+    color: #059669;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .btn-secondary:hover {
+    background: #059669;
+    color: #ffffff;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 12px rgba(5, 150, 105, 0.3);
+  }
+  
+  /* =========================
+     INPUTS
+     ========================= */
+  .auth-input {
+    width: 100%;
+    border: 2px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 14px 18px;
+    font-size: 16px;
+    font-family: "DM Sans", sans-serif;
+    transition: all 0.3s ease;
+    background: #ffffff;
+    /* Sombra interna sutil */
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+  
+  .auth-input:focus {
+    outline: none;
+    /* Borde más vibrante al hacer focus */
+    border-color: #ea580c;
+    box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.1), inset 0 2px 4px rgba(0, 0, 0, 0.05);
+    transform: translateY(-1px);
+  }
+  
+  .auth-input::placeholder {
+    color: #9ca3af;
+    font-weight: 400;
+  }
+  
+  /* =========================
+     ELEMENTOS DE JUEGO
+     ========================= */
+  /* Estilos para tarjetas de preguntas */
+  .question-card {
+    background: linear-gradient(145deg, #ffffff 0%, #fffbeb 100%);
+    border-radius: 20px;
+    padding: 24px;
+    margin: 16px 0;
+    box-shadow: 0 10px 20px rgba(234, 88, 12, 0.1), 0 4px 8px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(234, 88, 12, 0.1);
+    animation: slideInUp 0.5s ease-out;
+  }
+  
+  /* Botones de respuesta */
+  .answer-btn {
+    width: 100%;
+    padding: 16px 20px;
+    margin: 8px 0;
+    border: 2px solid #e5e7eb;
+    border-radius: 16px;
+    background: #ffffff;
+    color: #374151;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+  }
+  
+  .answer-btn:hover {
+    border-color: #ea580c;
+    background: rgba(234, 88, 12, 0.05);
+    transform: translateX(4px);
+  }
+  
+  .answer-btn.correct {
+    background: linear-gradient(135deg, #059669, #10b981);
+    color: #ffffff;
+    border-color: #059669;
+    animation: pulseCorrect 0.8s ease-in-out;
+  }
+  
+  .answer-btn.incorrect {
+    background: linear-gradient(135deg, #ef4444, #f87171);
+    color: #ffffff;
+    border-color: #ef4444;
+    animation: shakeIncorrect 0.6s ease-in-out;
+  }
+  
+  /* =========================
+     ANIMACIONES
+     ========================= */
+  @keyframes bounceIn {
+    0% {
+      transform: scale(0.3);
+      opacity: 0;
+    }
+    50% {
+      transform: scale(1.05);
+    }
+    70% {
+      transform: scale(0.9);
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideInUp {
+    from {
+      transform: translateY(30px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes pulseCorrect {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+  }
+  
+  @keyframes shakeIncorrect {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+      transform: translateX(-8px);
+    }
+    20%,
+    40%,
+    60%,
+    80% {
+      transform: translateX(8px);
+    }
+  }
+  
+  /* Animación de carga */
+  .loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(234, 88, 12, 0.1);
+    border-left: 4px solid #ea580c;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  /* =========================
+     RESPONSIVE
+     ========================= */
+  @media (max-width: 480px) {
+    .auth-card {
+      padding: 24px 20px;
+      border-radius: 20px;
+      margin: 16px;
+    }
+  
+    .btn-primary,
+    .btn-secondary {
+      font-size: 15px;
+      padding: 14px 20px;
+    }
+  
+    .auth-input {
+      font-size: 16px; /* Evita zoom en iOS */
+    }
+  
+    .question-card {
+      padding: 20px;
+      margin: 12px 0;
+    }
+  
+    .answer-btn {
+      padding: 14px 16px;
+      font-size: 15px;
+    }
+  }
+  
+  @media (max-width: 320px) {
+    .auth-card {
+      padding: 20px 16px;
+    }
+  
+    .screen {
+      padding: 16px;
+    }
+  }
+  
+  /* =========================
+     UTILIDADES
+     ========================= */
+  .text-gradient {
+    background: linear-gradient(135deg, #ea580c, #f97316);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+  }
+  
+  .pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  @keyframes pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+  
+  /* Efectos de partículas decorativas */
+  .particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+  }
+  
+  .particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: rgba(234, 88, 12, 0.3);
+    border-radius: 50%;
+    animation: floatParticle 10s linear infinite;
+  }
+  
+  @keyframes floatParticle {
+    0% {
+      transform: translateY(100vh) rotate(0deg);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-100px) rotate(360deg);
+      opacity: 0;
+    }
+  }
+  
